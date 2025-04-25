@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - 11435:11434
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  ollama: {}

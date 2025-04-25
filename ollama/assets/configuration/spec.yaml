@@ -1,0 +1,66 @@
+name: Ollama
+files:
+- name: ollama.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+
+  - template: instances
+    options:
+    - name: host
+      required: true
+      description: The host where the Ollama service is running.
+      value:
+        type: string
+        example: localhost
+
+    - name: port
+      required: true
+      description: The port where the Ollama service is exposed.
+      value:
+        type: integer
+        example: 11434
+
+    - name: use_https
+      description: Whether to use HTTPS when connecting to the Ollama API.
+      value:
+        type: boolean
+        example: false
+
+    - name: timeout
+      description: Timeout in seconds for requests to Ollama.
+      value:
+        type: integer
+        example: 5
+
+  - template: logs
+    example:
+    - type: file
+      path: /var/log/ollama.log
+      source: ollama
+      service: "<SERVICE>"
+
+- name: auto_conf.yaml
+  options:
+  - template: ad_identifiers
+    overrides:
+      value.example:
+        - ollama
+  - template: init_config
+    options: []
+  - template: instances
+    options:
+    - name: host
+      required: true
+      description: Enter the host to connect to.
+      value:
+        example: '%%host%%'
+        type: string
+
+    - name: port
+      required: true
+      description: Enter the port of the host to connect to.
+      value:
+        example: 11434
+        type: integer
